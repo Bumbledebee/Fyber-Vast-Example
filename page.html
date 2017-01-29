@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+</head>
+
+<body>
+  <p>
+    <!-- Video creative -->
+    <VIDEO name='test-video' id='test-video' width="500" height="350" controls>
+      <source src='vast_example.mp4' type='video/mp4' />
+    </VIDEO>
+    <script>
+      var request = new XMLHttpRequest();
+      request.open("GET", "https://loopme.me/api/vast/ads?appId=e18c19fa43&vast=3&uid=1234&ip=8.8.8.8&bundleid=com.loopme&appname=my_talking_pet&sdk=16.2&exchange=admarvel", false);
+      request.send(null);
+      var status = request.status
+      if (status == 200) {
+        handleData(request.responseText);
+      } else {
+        vast_xml = "no server";
+      }
+      function handleData(text) {
+         console.log(this)
+      }
+    </script>
+  </p>
+</body>
+
+</html>
