@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 
 <head>
@@ -6,25 +6,38 @@
 
 <body>
   <p>
-    <!-- Video creative -->
-    <VIDEO name='test-video' id='test-video' width="500" height="350" controls>
-      <source src='vast_example.mp4' type='video/mp4' />
-    </VIDEO>
-    <script>
-      var request = new XMLHttpRequest();
-      request.open("GET", "https://loopme.me/api/vast/ads?appId=e18c19fa43&vast=3&uid=1234&ip=8.8.8.8&bundleid=com.loopme&appname=my_talking_pet&sdk=16.2&exchange=admarvel", false);
-      request.send(null);
-      var status = request.status
-      if (status == 200) {
-        handleData(request.responseText);
-      } else {
-        vast_xml = "no server";
-      }
-      function handleData(text) {
-         console.log(this)
-      }
-    </script>
   </p>
 </body>
+    <script>
+    function HttpRequest(url, callback) {
+        this.request = new XMLHttpRequest();
+        this.request.open("GET", url);
 
+        var tempRequest = this.request;
+
+        function reqReadyStateChange() {
+            if (tempRequest.readyState == 4) {
+                if (tempRequest.status == 200) {
+                    callback(tempRequest.responseText);
+                } else {
+                    alert("An error occurred trying to contact the server.");
+                }
+            }
+        }
+
+        this.request.onreadystatechange = reqReadyStateChange;
+    }
+
+    HttpRequest.prototype.send = function () {
+        this.request.send(null);
+    };
+
+    function handleData(text){
+      alert(text)
+    }
+
+    var request = new HttpRequest("https://loopme.me/api/vast/ads?appId=e18c19fa43&vast=3&uid=1234&ip=8.8.8.8&bundleid=com.loopme&appname=my_talking_pet&sdk=16.2&exchange=admarvel", handleData)
+    request.send();
+
+    </script>
 </html>
